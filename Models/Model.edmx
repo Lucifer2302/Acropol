@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Koshevoi_AcropolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ImagesFonda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="images" Type="image" />
+        </EntityType>
+        <EntityType Name="JilFond">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Etaj" Type="nvarchar" MaxLength="50" />
+          <Property Name="GodPostroyki" Type="date" />
+          <Property Name="idKolKomnat" Type="int" />
+          <Property Name="idKolSanuzlov" Type="int" />
+          <Property Name="idNalichieKondic" Type="int" />
+          <Property Name="StoimostPoKadastru" Type="nvarchar" MaxLength="50" />
+          <Property Name="RinochStoimost" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArendnayaStoimost" Type="nvarchar" MaxLength="50" />
+          <Property Name="idImage" Type="int" />
+        </EntityType>
+        <EntityType Name="Komnati">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kolichestvo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kondicioner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nalichie" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "Koshevoi_Acropol.dbo.Menedger" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Menedger">
+          <Property Name="id" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Sanuzli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kolichestvo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_JilFond_ImagesFonda">
+          <End Role="ImagesFonda" Type="Self.ImagesFonda" Multiplicity="0..1" />
+          <End Role="JilFond" Type="Self.JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImagesFonda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idImage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Komnati">
+          <End Role="Komnati" Type="Self.Komnati" Multiplicity="0..1" />
+          <End Role="JilFond" Type="Self.JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komnati">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idKolKomnat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Kondicioner">
+          <End Role="Kondicioner" Type="Self.Kondicioner" Multiplicity="0..1" />
+          <End Role="JilFond" Type="Self.JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kondicioner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idNalichieKondic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Sanuzli">
+          <End Role="Sanuzli" Type="Self.Sanuzli" Multiplicity="0..1" />
+          <End Role="JilFond" Type="Self.JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sanuzli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idKolSanuzlov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Koshevoi_AcropolModelContainer">
+          <EntitySet Name="ImagesFonda" EntityType="Self.ImagesFonda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JilFond" EntityType="Self.JilFond" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Komnati" EntityType="Self.Komnati" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kondicioner" EntityType="Self.Kondicioner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sanuzli" EntityType="Self.Sanuzli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_JilFond_ImagesFonda" Association="Self.FK_JilFond_ImagesFonda">
+            <End Role="ImagesFonda" EntitySet="ImagesFonda" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Komnati" Association="Self.FK_JilFond_Komnati">
+            <End Role="Komnati" EntitySet="Komnati" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Kondicioner" Association="Self.FK_JilFond_Kondicioner">
+            <End Role="Kondicioner" EntitySet="Kondicioner" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Sanuzli" Association="Self.FK_JilFond_Sanuzli">
+            <End Role="Sanuzli" EntitySet="Sanuzli" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Koshevoi_AcropolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AcropolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ImagesFonda" EntityType="Koshevoi_AcropolModel.ImagesFonda" />
+          <EntitySet Name="JilFond" EntityType="Koshevoi_AcropolModel.JilFond" />
+          <EntitySet Name="Komnati" EntityType="Koshevoi_AcropolModel.Komnati" />
+          <EntitySet Name="Kondicioner" EntityType="Koshevoi_AcropolModel.Kondicioner" />
+          <EntitySet Name="Sanuzli" EntityType="Koshevoi_AcropolModel.Sanuzli" />
+          <EntitySet Name="sysdiagrams" EntityType="Koshevoi_AcropolModel.sysdiagrams" />
+          <AssociationSet Name="FK_JilFond_ImagesFonda" Association="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda">
+            <End Role="ImagesFonda" EntitySet="ImagesFonda" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Komnati" Association="Koshevoi_AcropolModel.FK_JilFond_Komnati">
+            <End Role="Komnati" EntitySet="Komnati" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Kondicioner" Association="Koshevoi_AcropolModel.FK_JilFond_Kondicioner">
+            <End Role="Kondicioner" EntitySet="Kondicioner" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_Sanuzli" Association="Koshevoi_AcropolModel.FK_JilFond_Sanuzli">
+            <End Role="Sanuzli" EntitySet="Sanuzli" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ImagesFonda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="images" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda" FromRole="ImagesFonda" ToRole="JilFond" />
+        </EntityType>
+        <EntityType Name="JilFond">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Etaj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GodPostroyki" Type="DateTime" Precision="0" />
+          <Property Name="idKolKomnat" Type="Int32" />
+          <Property Name="idKolSanuzlov" Type="Int32" />
+          <Property Name="idNalichieKondic" Type="Int32" />
+          <Property Name="StoimostPoKadastru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RinochStoimost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArendnayaStoimost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idImage" Type="Int32" />
+          <NavigationProperty Name="ImagesFonda" Relationship="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda" FromRole="JilFond" ToRole="ImagesFonda" />
+          <NavigationProperty Name="Komnati" Relationship="Koshevoi_AcropolModel.FK_JilFond_Komnati" FromRole="JilFond" ToRole="Komnati" />
+          <NavigationProperty Name="Kondicioner" Relationship="Koshevoi_AcropolModel.FK_JilFond_Kondicioner" FromRole="JilFond" ToRole="Kondicioner" />
+          <NavigationProperty Name="Sanuzli" Relationship="Koshevoi_AcropolModel.FK_JilFond_Sanuzli" FromRole="JilFond" ToRole="Sanuzli" />
+        </EntityType>
+        <EntityType Name="Komnati">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kolichestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_Komnati" FromRole="Komnati" ToRole="JilFond" />
+        </EntityType>
+        <EntityType Name="Kondicioner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nalichie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_Kondicioner" FromRole="Kondicioner" ToRole="JilFond" />
+        </EntityType>
+        <EntityType Name="Sanuzli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kolichestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_Sanuzli" FromRole="Sanuzli" ToRole="JilFond" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_JilFond_ImagesFonda">
+          <End Type="Koshevoi_AcropolModel.ImagesFonda" Role="ImagesFonda" Multiplicity="0..1" />
+          <End Type="Koshevoi_AcropolModel.JilFond" Role="JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImagesFonda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idImage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Komnati">
+          <End Type="Koshevoi_AcropolModel.Komnati" Role="Komnati" Multiplicity="0..1" />
+          <End Type="Koshevoi_AcropolModel.JilFond" Role="JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komnati">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idKolKomnat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Kondicioner">
+          <End Type="Koshevoi_AcropolModel.Kondicioner" Role="Kondicioner" Multiplicity="0..1" />
+          <End Type="Koshevoi_AcropolModel.JilFond" Role="JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kondicioner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idNalichieKondic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_Sanuzli">
+          <End Type="Koshevoi_AcropolModel.Sanuzli" Role="Sanuzli" Multiplicity="0..1" />
+          <End Type="Koshevoi_AcropolModel.JilFond" Role="JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sanuzli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idKolSanuzlov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Koshevoi_AcropolModelContainer" CdmEntityContainer="AcropolEntities">
+          <EntitySetMapping Name="ImagesFonda">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.ImagesFonda">
+              <MappingFragment StoreEntitySet="ImagesFonda">
+                <ScalarProperty Name="images" ColumnName="images" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JilFond">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.JilFond">
+              <MappingFragment StoreEntitySet="JilFond">
+                <ScalarProperty Name="idImage" ColumnName="idImage" />
+                <ScalarProperty Name="ArendnayaStoimost" ColumnName="ArendnayaStoimost" />
+                <ScalarProperty Name="RinochStoimost" ColumnName="RinochStoimost" />
+                <ScalarProperty Name="StoimostPoKadastru" ColumnName="StoimostPoKadastru" />
+                <ScalarProperty Name="idNalichieKondic" ColumnName="idNalichieKondic" />
+                <ScalarProperty Name="idKolSanuzlov" ColumnName="idKolSanuzlov" />
+                <ScalarProperty Name="idKolKomnat" ColumnName="idKolKomnat" />
+                <ScalarProperty Name="GodPostroyki" ColumnName="GodPostroyki" />
+                <ScalarProperty Name="Etaj" ColumnName="Etaj" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Komnati">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.Komnati">
+              <MappingFragment StoreEntitySet="Komnati">
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kondicioner">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.Kondicioner">
+              <MappingFragment StoreEntitySet="Kondicioner">
+                <ScalarProperty Name="Nalichie" ColumnName="Nalichie" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sanuzli">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.Sanuzli">
+              <MappingFragment StoreEntitySet="Sanuzli">
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
