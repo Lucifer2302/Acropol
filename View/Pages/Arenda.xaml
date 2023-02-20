@@ -8,7 +8,7 @@
       d:DesignHeight="769" d:DesignWidth="953"
       Title="Arenda">
 
-    <Grid Background="#FFE21919">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
@@ -108,8 +108,20 @@
         </Grid>
 
         <Grid Grid.Row="4" Grid.Column="2">
-            <Label Content="Фильтр по кол-ву комнат" FontSize="20"/>
-            <ComboBox Name="CmbFiltr" VerticalAlignment="Center" FontSize="20" SelectionChanged="CbFiltr_SelectionChanged"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Label Content="Фильтр по кол-ву комнат" FontSize="20"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <ComboBox Name="CmbFiltr" VerticalAlignment="Center" FontSize="20" SelectionChanged="CbFiltr_SelectionChanged"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Button Content="Сброс" VerticalAlignment="Center" FontSize="20" Click="Button_Click_2"/>
+            </Grid>
         </Grid>
         
         <Grid Grid.Row="4" Grid.Column="3">

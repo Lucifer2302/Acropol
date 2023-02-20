@@ -127,5 +127,12 @@ namespace Akropol.View.Pages
             GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.Where(i => i.idKolkomnat == SelectSotr).ToList();
 
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            CmbFiltr.Text = "";
+
+            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.ToList();
+        }
     }
 }
