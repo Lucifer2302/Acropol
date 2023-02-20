@@ -1,0 +1,231 @@
+USE [master]
+GO
+/****** Object:  Database [Koshevoi_Acropol]    Script Date: 16.02.2023 15:19:26 ******/
+CREATE DATABASE [Koshevoi_Acropol]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Koshevoi_Acropol', FILENAME = N'D:\User\Koshevoi_Acropol.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
+ LOG ON 
+( NAME = N'Koshevoi_Acropol_log', FILENAME = N'D:\User\Koshevoi_Acropol_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET COMPATIBILITY_LEVEL = 140
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Koshevoi_Acropol].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET  MULTI_USER 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'Koshevoi_Acropol', N'ON'
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET QUERY_STORE = OFF
+GO
+USE [Koshevoi_Acropol]
+GO
+/****** Object:  Table [dbo].[ImagesFonda]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ImagesFonda](
+	[id] [int] NOT NULL,
+	[images] [image] NULL,
+ CONSTRAINT [PK_ImagesFonda] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[JilFond]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JilFond](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Adress] [nvarchar](50) NULL,
+	[Etaj] [nvarchar](50) NULL,
+	[GodPostroyki] [date] NULL,
+	[idKolKomnat] [int] NULL,
+	[idKolSanuzlov] [int] NULL,
+	[idNalichieKondic] [int] NULL,
+	[StoimostPoKadastru] [nvarchar](50) NULL,
+	[RinochStoimost] [nvarchar](50) NULL,
+	[ArendnayaStoimost] [nvarchar](50) NULL,
+	[idImage] [int] NULL,
+	[Summa]  AS (([StoimostPoKadastru]+[RinochStoimost])+[ArendnayaStoimost]),
+ CONSTRAINT [PK_JilFond] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Komnati]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Komnati](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Kolichestvo] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Komnati] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Kondicioner]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Kondicioner](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Nalichie] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Kondicioner] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Menedger]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Menedger](
+	[id] [int] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pribil_Fonda]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pribil_Fonda](
+	[id] [int] NOT NULL,
+	[Pribil] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Pribil+fonda] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sanuzli]    Script Date: 16.02.2023 15:19:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sanuzli](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Kolichestvo] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Sanuzli] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[JilFond] ON 
+
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (1, N'Москва Верхние котлы', N'9', CAST(N'2022-12-12' AS Date), 2, 1, 1, N'20000', N'30000', N'5000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (2, N'Москва Зил', N'12', CAST(N'2022-12-12' AS Date), 3, 2, 1, N'25000', N'35000', N'10000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (3, N'Москва автозаводская', N'20', CAST(N'2023-02-18' AS Date), 3, 2, 1, N'30000', N'40000', N'15000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (4, N'Москва Шоссе', N'22', CAST(N'2023-02-16' AS Date), 3, 1, 1, NULL, NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[JilFond] OFF
+SET IDENTITY_INSERT [dbo].[Komnati] ON 
+
+INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (1, N'1')
+INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (2, N'2')
+INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (3, N'3')
+SET IDENTITY_INSERT [dbo].[Komnati] OFF
+SET IDENTITY_INSERT [dbo].[Kondicioner] ON 
+
+INSERT [dbo].[Kondicioner] ([id], [Nalichie]) VALUES (1, N'Есть')
+INSERT [dbo].[Kondicioner] ([id], [Nalichie]) VALUES (2, N'Нету')
+SET IDENTITY_INSERT [dbo].[Kondicioner] OFF
+SET IDENTITY_INSERT [dbo].[Sanuzli] ON 
+
+INSERT [dbo].[Sanuzli] ([id], [Kolichestvo]) VALUES (1, N'Один')
+INSERT [dbo].[Sanuzli] ([id], [Kolichestvo]) VALUES (2, N'Два')
+SET IDENTITY_INSERT [dbo].[Sanuzli] OFF
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_ImagesFonda] FOREIGN KEY([idImage])
+REFERENCES [dbo].[ImagesFonda] ([id])
+GO
+ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_ImagesFonda]
+GO
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Komnati] FOREIGN KEY([idKolKomnat])
+REFERENCES [dbo].[Komnati] ([id])
+GO
+ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_Komnati]
+GO
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Kondicioner] FOREIGN KEY([idNalichieKondic])
+REFERENCES [dbo].[Kondicioner] ([id])
+GO
+ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_Kondicioner]
+GO
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Sanuzli] FOREIGN KEY([idKolSanuzlov])
+REFERENCES [dbo].[Sanuzli] ([id])
+GO
+ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_Sanuzli]
+GO
+USE [master]
+GO
+ALTER DATABASE [Koshevoi_Acropol] SET  READ_WRITE 
+GO
