@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Koshevoi_Acropol]    Script Date: 16.02.2023 15:19:26 ******/
+/****** Object:  Database [Koshevoi_Acropol]    Script Date: 20.02.2023 14:09:04 ******/
 CREATE DATABASE [Koshevoi_Acropol]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -79,7 +79,7 @@ ALTER DATABASE [Koshevoi_Acropol] SET QUERY_STORE = OFF
 GO
 USE [Koshevoi_Acropol]
 GO
-/****** Object:  Table [dbo].[ImagesFonda]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[ImagesFonda]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[ImagesFonda](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JilFond]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[JilFond]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -102,8 +102,10 @@ CREATE TABLE [dbo].[JilFond](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[Adress] [nvarchar](50) NULL,
 	[Etaj] [nvarchar](50) NULL,
+	[ZanimaemiyEtaj] [nvarchar](50) NULL,
 	[GodPostroyki] [date] NULL,
-	[idKolKomnat] [int] NULL,
+	[idOkno] [int] NULL,
+	[idKolkomnat] [int] NULL,
 	[idKolSanuzlov] [int] NULL,
 	[idNalichieKondic] [int] NULL,
 	[StoimostPoKadastru] [nvarchar](50) NULL,
@@ -117,21 +119,21 @@ CREATE TABLE [dbo].[JilFond](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Komnati]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[Komnati]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Komnati](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[Kolichestvo] [nvarchar](50) NULL,
+	[KolKomnat] [nvarchar](50) NULL,
  CONSTRAINT [PK_Komnati] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Kondicioner]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[Kondicioner]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -145,7 +147,7 @@ CREATE TABLE [dbo].[Kondicioner](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Menedger]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[Menedger]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -154,21 +156,21 @@ CREATE TABLE [dbo].[Menedger](
 	[id] [int] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pribil_Fonda]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[RaspolojenieOkna]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Pribil_Fonda](
-	[id] [int] NOT NULL,
-	[Pribil] [nvarchar](50) NULL,
- CONSTRAINT [PK_Pribil+fonda] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[RaspolojenieOkna](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Okna] [nvarchar](50) NULL,
+ CONSTRAINT [PK_RaspolojenieOkna] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sanuzli]    Script Date: 16.02.2023 15:19:27 ******/
+/****** Object:  Table [dbo].[Sanuzli]    Script Date: 20.02.2023 14:09:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,22 +186,28 @@ CREATE TABLE [dbo].[Sanuzli](
 GO
 SET IDENTITY_INSERT [dbo].[JilFond] ON 
 
-INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (1, N'Москва Верхние котлы', N'9', CAST(N'2022-12-12' AS Date), 2, 1, 1, N'20000', N'30000', N'5000', NULL)
-INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (2, N'Москва Зил', N'12', CAST(N'2022-12-12' AS Date), 3, 2, 1, N'25000', N'35000', N'10000', NULL)
-INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (3, N'Москва автозаводская', N'20', CAST(N'2023-02-18' AS Date), 3, 2, 1, N'30000', N'40000', N'15000', NULL)
-INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [GodPostroyki], [idKolKomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (4, N'Москва Шоссе', N'22', CAST(N'2023-02-16' AS Date), 3, 1, 1, NULL, NULL, NULL, NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [ZanimaemiyEtaj], [GodPostroyki], [idOkno], [idKolkomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (1, N'Москва Верхние котлы', N'9', N'1', CAST(N'2022-12-12' AS Date), 1, 3, 1, 1, N'20000', N'30000', N'5000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [ZanimaemiyEtaj], [GodPostroyki], [idOkno], [idKolkomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (2, N'Москва Зил', N'12', N'4', CAST(N'2022-12-12' AS Date), 1, 2, 2, 1, N'25000', N'35000', N'10000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [ZanimaemiyEtaj], [GodPostroyki], [idOkno], [idKolkomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (3, N'Москва автозаводская', N'20', N'20', CAST(N'2023-02-18' AS Date), 2, 1, 2, 1, N'30000', N'40000', N'15000', NULL)
+INSERT [dbo].[JilFond] ([id], [Adress], [Etaj], [ZanimaemiyEtaj], [GodPostroyki], [idOkno], [idKolkomnat], [idKolSanuzlov], [idNalichieKondic], [StoimostPoKadastru], [RinochStoimost], [ArendnayaStoimost], [idImage]) VALUES (4, N'Москва Шоссе', N'22', N'18', CAST(N'2023-02-16' AS Date), 3, 3, 1, 1, NULL, NULL, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[JilFond] OFF
 SET IDENTITY_INSERT [dbo].[Komnati] ON 
 
-INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (1, N'1')
-INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (2, N'2')
-INSERT [dbo].[Komnati] ([id], [Kolichestvo]) VALUES (3, N'3')
+INSERT [dbo].[Komnati] ([id], [KolKomnat]) VALUES (1, N'1')
+INSERT [dbo].[Komnati] ([id], [KolKomnat]) VALUES (2, N'2')
+INSERT [dbo].[Komnati] ([id], [KolKomnat]) VALUES (3, N'3')
 SET IDENTITY_INSERT [dbo].[Komnati] OFF
 SET IDENTITY_INSERT [dbo].[Kondicioner] ON 
 
 INSERT [dbo].[Kondicioner] ([id], [Nalichie]) VALUES (1, N'Есть')
 INSERT [dbo].[Kondicioner] ([id], [Nalichie]) VALUES (2, N'Нету')
 SET IDENTITY_INSERT [dbo].[Kondicioner] OFF
+SET IDENTITY_INSERT [dbo].[RaspolojenieOkna] ON 
+
+INSERT [dbo].[RaspolojenieOkna] ([id], [Okna]) VALUES (1, N'Дорога')
+INSERT [dbo].[RaspolojenieOkna] ([id], [Okna]) VALUES (2, N'Двор')
+INSERT [dbo].[RaspolojenieOkna] ([id], [Okna]) VALUES (3, N'Дорога и Двор')
+SET IDENTITY_INSERT [dbo].[RaspolojenieOkna] OFF
 SET IDENTITY_INSERT [dbo].[Sanuzli] ON 
 
 INSERT [dbo].[Sanuzli] ([id], [Kolichestvo]) VALUES (1, N'Один')
@@ -210,7 +218,7 @@ REFERENCES [dbo].[ImagesFonda] ([id])
 GO
 ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_ImagesFonda]
 GO
-ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Komnati] FOREIGN KEY([idKolKomnat])
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Komnati] FOREIGN KEY([idKolkomnat])
 REFERENCES [dbo].[Komnati] ([id])
 GO
 ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_Komnati]
@@ -219,6 +227,11 @@ ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Kondicioner]
 REFERENCES [dbo].[Kondicioner] ([id])
 GO
 ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_Kondicioner]
+GO
+ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_RaspolojenieOkna] FOREIGN KEY([idOkno])
+REFERENCES [dbo].[RaspolojenieOkna] ([id])
+GO
+ALTER TABLE [dbo].[JilFond] CHECK CONSTRAINT [FK_JilFond_RaspolojenieOkna]
 GO
 ALTER TABLE [dbo].[JilFond]  WITH CHECK ADD  CONSTRAINT [FK_JilFond_Sanuzli] FOREIGN KEY([idKolSanuzlov])
 REFERENCES [dbo].[Sanuzli] ([id])
