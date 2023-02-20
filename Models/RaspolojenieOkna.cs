@@ -12,16 +12,16 @@ namespace Akropol.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Komnati
+    public partial class RaspolojenieOkna
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Komnati()
+        public RaspolojenieOkna()
         {
             this.JilFond = new HashSet<JilFond>();
         }
     
         public int id { get; set; }
-        public string KolKomnat { get; set; }
+        public string Okna { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JilFond> JilFond { get; set; }

@@ -97,6 +97,9 @@
     <Compile Include="Models\Kondicioner.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RaspolojenieOkna.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sanuzli.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

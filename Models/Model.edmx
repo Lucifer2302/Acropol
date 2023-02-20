@@ -19,21 +19,24 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Adress" Type="nvarchar" MaxLength="50" />
           <Property Name="Etaj" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZanimaemiyEtaj" Type="nvarchar" MaxLength="50" />
           <Property Name="GodPostroyki" Type="date" />
-          <Property Name="idKolKomnat" Type="int" />
+          <Property Name="idOkno" Type="int" />
+          <Property Name="idKolkomnat" Type="int" />
           <Property Name="idKolSanuzlov" Type="int" />
           <Property Name="idNalichieKondic" Type="int" />
           <Property Name="StoimostPoKadastru" Type="nvarchar" MaxLength="50" />
           <Property Name="RinochStoimost" Type="nvarchar" MaxLength="50" />
           <Property Name="ArendnayaStoimost" Type="nvarchar" MaxLength="50" />
           <Property Name="idImage" Type="int" />
+          <Property Name="Summa" Type="nvarchar" MaxLength="150" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Komnati">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Kolichestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="KolKomnat" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Kondicioner">
           <Key>
@@ -47,6 +50,13 @@
         <EntityType Name="Menedger">
           <Property Name="id" Type="int" />
         </EntityType>-->
+        <EntityType Name="RaspolojenieOkna">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Okna" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Sanuzli">
           <Key>
             <PropertyRef Name="id" />
@@ -84,7 +94,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="JilFond">
-              <PropertyRef Name="idKolKomnat" />
+              <PropertyRef Name="idKolkomnat" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -97,6 +107,18 @@
             </Principal>
             <Dependent Role="JilFond">
               <PropertyRef Name="idNalichieKondic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_RaspolojenieOkna">
+          <End Role="RaspolojenieOkna" Type="Self.RaspolojenieOkna" Multiplicity="0..1" />
+          <End Role="JilFond" Type="Self.JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RaspolojenieOkna">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idOkno" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -117,6 +139,7 @@
           <EntitySet Name="JilFond" EntityType="Self.JilFond" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Komnati" EntityType="Self.Komnati" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kondicioner" EntityType="Self.Kondicioner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RaspolojenieOkna" EntityType="Self.RaspolojenieOkna" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sanuzli" EntityType="Self.Sanuzli" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_JilFond_ImagesFonda" Association="Self.FK_JilFond_ImagesFonda">
@@ -129,6 +152,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_JilFond_Kondicioner" Association="Self.FK_JilFond_Kondicioner">
             <End Role="Kondicioner" EntitySet="Kondicioner" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_RaspolojenieOkna" Association="Self.FK_JilFond_RaspolojenieOkna">
+            <End Role="RaspolojenieOkna" EntitySet="RaspolojenieOkna" />
             <End Role="JilFond" EntitySet="JilFond" />
           </AssociationSet>
           <AssociationSet Name="FK_JilFond_Sanuzli" Association="Self.FK_JilFond_Sanuzli">
@@ -145,6 +172,7 @@
           <EntitySet Name="JilFond" EntityType="Koshevoi_AcropolModel.JilFond" />
           <EntitySet Name="Komnati" EntityType="Koshevoi_AcropolModel.Komnati" />
           <EntitySet Name="Kondicioner" EntityType="Koshevoi_AcropolModel.Kondicioner" />
+          <EntitySet Name="RaspolojenieOkna" EntityType="Koshevoi_AcropolModel.RaspolojenieOkna" />
           <EntitySet Name="Sanuzli" EntityType="Koshevoi_AcropolModel.Sanuzli" />
           <EntitySet Name="sysdiagrams" EntityType="Koshevoi_AcropolModel.sysdiagrams" />
           <AssociationSet Name="FK_JilFond_ImagesFonda" Association="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda">
@@ -157,6 +185,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_JilFond_Kondicioner" Association="Koshevoi_AcropolModel.FK_JilFond_Kondicioner">
             <End Role="Kondicioner" EntitySet="Kondicioner" />
+            <End Role="JilFond" EntitySet="JilFond" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JilFond_RaspolojenieOkna" Association="Koshevoi_AcropolModel.FK_JilFond_RaspolojenieOkna">
+            <End Role="RaspolojenieOkna" EntitySet="RaspolojenieOkna" />
             <End Role="JilFond" EntitySet="JilFond" />
           </AssociationSet>
           <AssociationSet Name="FK_JilFond_Sanuzli" Association="Koshevoi_AcropolModel.FK_JilFond_Sanuzli">
@@ -179,17 +211,21 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Etaj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZanimaemiyEtaj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GodPostroyki" Type="DateTime" Precision="0" />
-          <Property Name="idKolKomnat" Type="Int32" />
+          <Property Name="idOkno" Type="Int32" />
+          <Property Name="idKolkomnat" Type="Int32" />
           <Property Name="idKolSanuzlov" Type="Int32" />
           <Property Name="idNalichieKondic" Type="Int32" />
           <Property Name="StoimostPoKadastru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RinochStoimost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ArendnayaStoimost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="idImage" Type="Int32" />
+          <Property Name="Summa" Type="String" MaxLength="150" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="ImagesFonda" Relationship="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda" FromRole="JilFond" ToRole="ImagesFonda" />
           <NavigationProperty Name="Komnati" Relationship="Koshevoi_AcropolModel.FK_JilFond_Komnati" FromRole="JilFond" ToRole="Komnati" />
           <NavigationProperty Name="Kondicioner" Relationship="Koshevoi_AcropolModel.FK_JilFond_Kondicioner" FromRole="JilFond" ToRole="Kondicioner" />
+          <NavigationProperty Name="RaspolojenieOkna" Relationship="Koshevoi_AcropolModel.FK_JilFond_RaspolojenieOkna" FromRole="JilFond" ToRole="RaspolojenieOkna" />
           <NavigationProperty Name="Sanuzli" Relationship="Koshevoi_AcropolModel.FK_JilFond_Sanuzli" FromRole="JilFond" ToRole="Sanuzli" />
         </EntityType>
         <EntityType Name="Komnati">
@@ -197,7 +233,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Kolichestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KolKomnat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_Komnati" FromRole="Komnati" ToRole="JilFond" />
         </EntityType>
         <EntityType Name="Kondicioner">
@@ -207,6 +243,14 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nalichie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_Kondicioner" FromRole="Kondicioner" ToRole="JilFond" />
+        </EntityType>
+        <EntityType Name="RaspolojenieOkna">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Okna" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JilFond" Relationship="Koshevoi_AcropolModel.FK_JilFond_RaspolojenieOkna" FromRole="RaspolojenieOkna" ToRole="JilFond" />
         </EntityType>
         <EntityType Name="Sanuzli">
           <Key>
@@ -246,7 +290,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="JilFond">
-              <PropertyRef Name="idKolKomnat" />
+              <PropertyRef Name="idKolkomnat" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -259,6 +303,18 @@
             </Principal>
             <Dependent Role="JilFond">
               <PropertyRef Name="idNalichieKondic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JilFond_RaspolojenieOkna">
+          <End Type="Koshevoi_AcropolModel.RaspolojenieOkna" Role="RaspolojenieOkna" Multiplicity="0..1" />
+          <End Type="Koshevoi_AcropolModel.JilFond" Role="JilFond" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RaspolojenieOkna">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="JilFond">
+              <PropertyRef Name="idOkno" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -291,14 +347,17 @@
           <EntitySetMapping Name="JilFond">
             <EntityTypeMapping TypeName="Koshevoi_AcropolModel.JilFond">
               <MappingFragment StoreEntitySet="JilFond">
+                <ScalarProperty Name="Summa" ColumnName="Summa" />
                 <ScalarProperty Name="idImage" ColumnName="idImage" />
                 <ScalarProperty Name="ArendnayaStoimost" ColumnName="ArendnayaStoimost" />
                 <ScalarProperty Name="RinochStoimost" ColumnName="RinochStoimost" />
                 <ScalarProperty Name="StoimostPoKadastru" ColumnName="StoimostPoKadastru" />
                 <ScalarProperty Name="idNalichieKondic" ColumnName="idNalichieKondic" />
                 <ScalarProperty Name="idKolSanuzlov" ColumnName="idKolSanuzlov" />
-                <ScalarProperty Name="idKolKomnat" ColumnName="idKolKomnat" />
+                <ScalarProperty Name="idKolkomnat" ColumnName="idKolkomnat" />
+                <ScalarProperty Name="idOkno" ColumnName="idOkno" />
                 <ScalarProperty Name="GodPostroyki" ColumnName="GodPostroyki" />
+                <ScalarProperty Name="ZanimaemiyEtaj" ColumnName="ZanimaemiyEtaj" />
                 <ScalarProperty Name="Etaj" ColumnName="Etaj" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -308,7 +367,7 @@
           <EntitySetMapping Name="Komnati">
             <EntityTypeMapping TypeName="Koshevoi_AcropolModel.Komnati">
               <MappingFragment StoreEntitySet="Komnati">
-                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+                <ScalarProperty Name="KolKomnat" ColumnName="KolKomnat" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -317,6 +376,14 @@
             <EntityTypeMapping TypeName="Koshevoi_AcropolModel.Kondicioner">
               <MappingFragment StoreEntitySet="Kondicioner">
                 <ScalarProperty Name="Nalichie" ColumnName="Nalichie" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RaspolojenieOkna">
+            <EntityTypeMapping TypeName="Koshevoi_AcropolModel.RaspolojenieOkna">
+              <MappingFragment StoreEntitySet="RaspolojenieOkna">
+                <ScalarProperty Name="Okna" ColumnName="Okna" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -17,18 +17,22 @@ namespace Akropol.Models
         public int id { get; set; }
         public string Adress { get; set; }
         public string Etaj { get; set; }
+        public string ZanimaemiyEtaj { get; set; }
         public Nullable<System.DateTime> GodPostroyki { get; set; }
-        public Nullable<int> idKolKomnat { get; set; }
+        public Nullable<int> idOkno { get; set; }
+        public Nullable<int> idKolkomnat { get; set; }
         public Nullable<int> idKolSanuzlov { get; set; }
         public Nullable<int> idNalichieKondic { get; set; }
         public string StoimostPoKadastru { get; set; }
         public string RinochStoimost { get; set; }
         public string ArendnayaStoimost { get; set; }
         public Nullable<int> idImage { get; set; }
+        public string Summa { get; set; }
     
         public virtual ImagesFonda ImagesFonda { get; set; }
         public virtual Komnati Komnati { get; set; }
         public virtual Kondicioner Kondicioner { get; set; }
+        public virtual RaspolojenieOkna RaspolojenieOkna { get; set; }
         public virtual Sanuzli Sanuzli { get; set; }
     }
 }

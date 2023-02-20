@@ -65,23 +65,30 @@ namespace Akropol.View.Pages
 
         private void BtnFiltr_Click(object sender, RoutedEventArgs e)
         {
-            //string mes = "";
-            //if (string.IsNullOrWhiteSpace(DP1.Text))
-            //    mes += "Выберите начало периода\n";
-            //if (string.IsNullOrWhiteSpace(DP2.Text))
-            //    mes += "Выберите конец периода\n";
-            //if (mes != "")
-            //{
-            //    MessageBox.Show(mes);
-            //    mes = "";
-            //    return;
-            //}
-            //var a = (DateTime)DP1.SelectedDate;
-            //var b = (DateTime)DP2.SelectedDate;
+            string mes = "";
+            if (string.IsNullOrWhiteSpace(DP1.Text))
+                mes += "Выберите начало периода\n";
+            if (string.IsNullOrWhiteSpace(DP2.Text))
+                mes += "Выберите конец периода\n";
+            if (mes != "")
+            {
+                MessageBox.Show(mes);
+                mes = "";
+                return;
+            }
+            var a = (DateTime)DP1.SelectedDate;
+            var b = (DateTime)DP2.SelectedDate;
 
-            //var query = AppData.ModelHelper.entities.JilFond.Where(x => x.Datespol >= a && x.Datespol <= b).GroupBy(y => y.Name).Select(z => new { Сотрудник = z.Key, Сумма = z.Sum(s => s.Summa) }).OrderBy(n => n.Сотрудник);
-            //GridUchet.ItemsSource = query.ToList();
+            var query = AppData.ModelHelper.entities.JilFond.Where(x => x.GodPostroyki >= a && x.GodPostroyki <= b);
+            GridUchet.ItemsSource = query.ToList();
 
+        }
+
+        private void Sbros_Click(object sender, RoutedEventArgs e)
+        {
+            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.ToList();
+            DP1.Text = "";
+            DP2.Text = "";
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Akropol.Models
         public virtual DbSet<JilFond> JilFond { get; set; }
         public virtual DbSet<Komnati> Komnati { get; set; }
         public virtual DbSet<Kondicioner> Kondicioner { get; set; }
+        public virtual DbSet<RaspolojenieOkna> RaspolojenieOkna { get; set; }
         public virtual DbSet<Sanuzli> Sanuzli { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }

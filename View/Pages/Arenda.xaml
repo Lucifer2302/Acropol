@@ -8,7 +8,7 @@
       d:DesignHeight="769" d:DesignWidth="953"
       Title="Arenda">
 
-    <Grid>
+    <Grid Background="#FFE21919">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="1*" />
@@ -23,7 +23,7 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
@@ -38,10 +38,10 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <Label Content="Выберите дату поставки" FontSize="20"/>
+                <Label Content="Выберите дату постройки" FontSize="20"/>
                 <DatePicker Name="DtPick" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" FontSize="17"/>
             </Grid>
-            
+
             <Grid Grid.Row="2">
                 <Label Content="Выберите количество комнат" FontSize="20"/>
                 <ComboBox Name="CmbKomnat" VerticalAlignment="Center" FontSize="20"/>
@@ -61,43 +61,45 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
             <Grid>
                 <Label Content="Наличие кондиционера" FontSize="20"/>
-                <ComboBox Name="CmbKond" VerticalAlignment="Center" FontSize="20"/>
+                <ComboBox Name="CmbKond" VerticalAlignment="Bottom" FontSize="20"/>
             </Grid>
-            
+
             <Grid Grid.Row="1">
                 <Label Content="Введите адрес" FontSize="20"/>
-                <TextBox Name="TbAdres" VerticalAlignment="Center" FontSize="20"/>
+                <TextBox Name="TbAdres" VerticalAlignment="Bottom" FontSize="20"/>
             </Grid>
 
             <Grid Grid.Row="2">
-                <Label Content="Фильтр по кол-ву комнат" FontSize="20"/>
-                <ComboBox Name="CmbFiltr" VerticalAlignment="Center" FontSize="20" SelectionChanged="CbFiltr_SelectionChanged"/>
-            </Grid>
-
-            <!--<Grid Grid.Row="2">
-                <Label Content="Введите рыночную стоимость" FontSize="20"/>
-                <TextBox Name="TbPrice2" VerticalAlignment="Center" FontSize="20"/>
+                <Label Content="Введите желаемый этаж" FontSize="20"/>
+                <TextBox Name="TbJelEtaj" VerticalAlignment="Bottom" FontSize="20"/>
             </Grid>
 
             <Grid Grid.Row="3">
-                <Label Content="Введите арендную плату" FontSize="20"/>
-                <TextBox Name="TbPrice3" VerticalAlignment="Center" FontSize="20"/>
-            </Grid>-->
+                <Label Content="Выберите расположение окна" FontSize="20"/>
+                <ComboBox Name="CmbOkno" VerticalAlignment="Bottom" FontSize="20"/>
+            </Grid>
 
         </Grid>
 
         <DataGrid IsReadOnly="True" Margin="5" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Name="GridUchet" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Adres" Width="*" Binding="{Binding Adress}"/>
-                <DataGridTextColumn Header="Etaji" Width="*" Binding="{Binding Etaj}"/>
-                <DataGridTextColumn Header="GodPostroyki" Width="*" Binding="{Binding GodPostroyki}"/>
-                <DataGridTextColumn Header="KolKomnat" Width="*" Binding="{Binding Komnati.Kolichestvo}"/>
-                <DataGridTextColumn Header="KolSanuzlov" Width="*" Binding="{Binding Sanuzli.Kolichestvo}"/>
-                <DataGridTextColumn Header="NalichieKondic" Width="*" Binding="{Binding Kondicioner.Nalichie}"/>
+                <DataGridTextColumn Header="Адрес" Width="*" Binding="{Binding Adress}"/>
+                <DataGridTextColumn Header="Этажи" Width="*" Binding="{Binding Etaj}"/>
+                <DataGridTextColumn Header="Занимаемый этаж" Width="*" Binding="{Binding ZanimaemiyEtaj}"/>
+                <DataGridTextColumn Header="Расположение окна" Width="*" Binding="{Binding RaspolojenieOkna.Okna}"/>
+                <DataGridTextColumn Header="Кол-во комнат" Width="*" Binding="{Binding Komnati.KolKomnat}"/>
+                <DataGridTextColumn Header="Кол-во санузлов" Width="*" Binding="{Binding Sanuzli.Kolichestvo}"/>
+                <DataGridTextColumn Header="Наличие кондиционера" Width="*" Binding="{Binding Kondicioner.Nalichie}"/>
+                <DataGridTextColumn Header="Стоимость по кадастру" Width="*" Binding="{Binding StoimostPoKadastru}"/>
+                <DataGridTextColumn Header="Рыночная стоимость" Width="*" Binding="{Binding RinochStoimost}"/>
+                <DataGridTextColumn Header="Арендная стоимость" Width="*" Binding="{Binding ArendnayaStoimost}"/>
+
+                <DataGridTextColumn Header="Год постройки" Width="*" Binding="{Binding GodPostroyki}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -106,6 +108,11 @@
         </Grid>
 
         <Grid Grid.Row="4" Grid.Column="2">
+            <Label Content="Фильтр по кол-ву комнат" FontSize="20"/>
+            <ComboBox Name="CmbFiltr" VerticalAlignment="Center" FontSize="20" SelectionChanged="CbFiltr_SelectionChanged"/>
+        </Grid>
+        
+        <Grid Grid.Row="4" Grid.Column="3">
             <Button Content="Удалить" FontSize="20" Grid.ColumnSpan="2" Margin="30" Height="50" Click="Button_Click_1"/>
         </Grid>
 

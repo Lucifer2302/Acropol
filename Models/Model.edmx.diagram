@@ -5,15 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="70751c92ad80409d872ee85e826d2eca" Name="Diagram1">
-        <EntityTypeShape EntityType="Koshevoi_AcropolModel.ImagesFonda" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="Koshevoi_AcropolModel.ImagesFonda" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="Koshevoi_AcropolModel.JilFond" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Komnati" Width="1.5" PointX="0.75" PointY="2.125" />
-        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Kondicioner" Width="1.5" PointX="0.75" PointY="10" />
-        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Sanuzli" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Komnati" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Kondicioner" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="Koshevoi_AcropolModel.RaspolojenieOkna" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Koshevoi_AcropolModel.Sanuzli" Width="1.5" PointX="0.75" PointY="2.625" />
         <EntityTypeShape EntityType="Koshevoi_AcropolModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
         <AssociationConnector Association="Koshevoi_AcropolModel.FK_JilFond_ImagesFonda" />
         <AssociationConnector Association="Koshevoi_AcropolModel.FK_JilFond_Komnati" />
         <AssociationConnector Association="Koshevoi_AcropolModel.FK_JilFond_Kondicioner" />
+        <AssociationConnector Association="Koshevoi_AcropolModel.FK_JilFond_RaspolojenieOkna" />
         <AssociationConnector Association="Koshevoi_AcropolModel.FK_JilFond_Sanuzli" />
       </Diagram>
     </edmx:Diagrams>

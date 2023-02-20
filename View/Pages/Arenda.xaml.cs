@@ -23,11 +23,12 @@ namespace Akropol.View.Pages
         public Arenda()
         {
             InitializeComponent();
-            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.ToList();
+
             AppData.ModelHelper.entities = new Models.AcropolEntities();
+            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.ToList();
 
             CmbKomnat.SelectedValuePath = "id";
-            CmbKomnat.DisplayMemberPath = "Kolichestvo";
+            CmbKomnat.DisplayMemberPath = "KolKomnat";
             CmbKomnat.ItemsSource = AppData.ModelHelper.entities.Komnati.ToList();
 
             CmbSanuzl.SelectedValuePath = "id";
@@ -39,8 +40,14 @@ namespace Akropol.View.Pages
             CmbKond.ItemsSource = AppData.ModelHelper.entities.Kondicioner.ToList();
 
             CmbFiltr.SelectedValuePath = "id";
-            CmbFiltr.DisplayMemberPath = "Kolichestvo";
+            CmbFiltr.DisplayMemberPath = "KolKomnat";
             CmbFiltr.ItemsSource = AppData.ModelHelper.entities.Komnati.ToList();
+
+            CmbOkno.SelectedValuePath = "id";
+            CmbOkno.DisplayMemberPath = "Okna";
+            CmbOkno.ItemsSource = AppData.ModelHelper.entities.RaspolojenieOkna.ToList();
+
+
 
 
 
@@ -62,10 +69,10 @@ namespace Akropol.View.Pages
                 mes += " Выберите наличие кондиционера\n";
             if (string.IsNullOrWhiteSpace(TbAdres.Text))
                 mes += "Введите адресь\n";
-            //if (string.IsNullOrWhiteSpace(TbPrice2.Text))
-            //    mes += "Введите арендную плату\n";
-            //if (string.IsNullOrWhiteSpace(TbPrice3.Text))
-            //    mes += "Выберите кол-во этажей\n";
+            if (string.IsNullOrWhiteSpace(CmbOkno.Text))
+                mes += "Выберите расположение окна\n";
+            if (string.IsNullOrWhiteSpace(TbJelEtaj.Text))
+                mes += "Введите желаемый этаж\n";
 
             if (mes != "")
             {
@@ -117,7 +124,7 @@ namespace Akropol.View.Pages
         private void CbFiltr_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int SelectSotr = Convert.ToInt32(CmbFiltr.SelectedValue);
-            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.Where(i => i.idKolKomnat == SelectSotr).ToList();
+            GridUchet.ItemsSource = AppData.ModelHelper.entities.JilFond.Where(i => i.idKolkomnat == SelectSotr).ToList();
 
         }
     }

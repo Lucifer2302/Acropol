@@ -49,7 +49,7 @@
 
 
         </Grid>
-        
+
         <Grid Grid.Column="2" Grid.Row="0">
             <StackPanel>
                 <Label Content="Начало периода" FontSize="20"/>
@@ -63,17 +63,21 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Top">
-        <Button Name="BtnFiltr" Content="Фильтр" FontSize="20" Click="BtnFiltr_Click"/>
+            <Button Name="BtnFiltr" Content="Фильтр" FontSize="20" Click="BtnFiltr_Click"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+            <Button Name="Sbros" Content="Сбросить" FontSize="20" Click="Sbros_Click" VerticalAlignment="Bottom"/>
         </Grid>
 
 
 
         <DataGrid IsReadOnly="True" Margin="5" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Name="GridUchet" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Adres" Width="*" Binding="{Binding Adress}"/>
-                <DataGridTextColumn Header="StoimostPoKadastru" Width="*" Binding="{Binding StoimostPoKadastru}"/>
-                <DataGridTextColumn Header="RinochStoimost" Width="*" Binding="{Binding RinochStoimost}"/>
-                <DataGridTextColumn Header="ArendnayaStoimost" Width="*" Binding="{Binding ArendnayaStoimost}"/>
+                <DataGridTextColumn Header="Адрес" Width="*" Binding="{Binding Adress}"/>
+                <DataGridTextColumn Header="Стоимость по кадастру" Width="*" Binding="{Binding StoimostPoKadastru}"/>
+                <DataGridTextColumn Header="Рыночная стоимость" Width="*" Binding="{Binding RinochStoimost}"/>
+                <DataGridTextColumn Header="Арендная стоимость" Width="*" Binding="{Binding ArendnayaStoimost}"/>
+                <DataGridTextColumn Header="Дата постройки" Width="*" Binding="{Binding GodPostroyki}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -83,7 +87,7 @@
 
         <Grid Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
             <TextBlock Grid.Row="2" FontSize="30" Text="Общая сумма"/>
-            
+
 
         </Grid>
         <Grid Grid.Row="4" Grid.Column="3" VerticalAlignment="Center">
